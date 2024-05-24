@@ -40,7 +40,7 @@ module caja(x, y, z, r, fn = 100) {
             translate([0, y, 0]) rotate([90, 0, 0]) bordeHorizontal(r, y, fn);
             translate([x - d, y, 0]) rotate([90, 0, 0]) bordeHorizontal(r, y, fn);
         }       
-        translate([r,r,r]) cube([x - (2*r), y - (2*r), z - r + 0.01]);   
+        translate([r, r, r]) cube([x - (2*r), y - (2*r), z - r + 0.01]);         
     }
     bordeVertical(r, z, fn);
     translate([x - d, 0, 0]) bordeVertical(r, z, fn);
@@ -61,13 +61,15 @@ module cajaHembra(x, y, z, r1, r2, fn = 100) {
             baseEnganches(x, y, z, r1, r2, fn);
         }
         enganches(x, y, z, r1, r2, fn);
+        // Rebaje para ayudar a abrir la caja
+        translate([x/2, y/2, z]) cube([x + 1, 5, 0.5], center = true);  
     }
 }
 
 // Ejemplo de uso
 // translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 32);
 // En la caja hembra, en los agujeros los enganches, le damos 0.1 de holgura
-// cajaHembra(60, 40, 10, 2, 2.1, 32);
+cajaHembra(60, 40, 10, 2, 2.1, 32);
 // Caja sin enganches
 // translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
 
