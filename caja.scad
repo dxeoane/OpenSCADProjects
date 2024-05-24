@@ -10,11 +10,20 @@ module bordeHorizontal(r, largo, fn = 100) {
     translate([r, r, largo - r]) sphere(r = r, $fn = fn);
 }
 
+module baseEnganches(x, y, z, r1, r2, fn = 100) {
+    radioExterior = r1 + r2;
+    translate([radioExterior, radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+    translate([x - radioExterior, radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+    translate([radioExterior, y - radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+    translate([x - radioExterior, y - radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+}
+
 module enganches(x, y, z, r1, r2, fn = 100) {
-    translate([r1, r1, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([x - r1, r1, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([r1, y - r1, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([x - r1, y - r1, r1]) cylinder(r = r2, h = z, $fn = fn);
+    radioExterior = r1 + r2;
+    translate([radioExterior, radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
+    translate([x - radioExterior, radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
+    translate([radioExterior, y - radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
+    translate([x - radioExterior, y - radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
 }
 
 module caja(x, y, z, r, fn = 100) {  
@@ -39,13 +48,25 @@ module caja(x, y, z, r, fn = 100) {
     translate([x - d, y - d, 0]) bordeVertical(r, z, fn);    
 }
 
-// Ejemplo de uso
-translate([80, 0, 0]) union() {
-    caja(60, 40, 10, 2, 32);
-    enganches(60, 40, 10, 2, 1, 32);
+module cajaMacho(x, y, z, r1, r2, fn = 100) {  
+    caja(x, y, z, r1, fn);
+    baseEnganches(x, y, z, r1, r2, fn);
+    enganches(x, y, z, r1, r2, fn);
 }
 
-difference() {
-    caja(60, 40, 10, 2, 32);
-    enganches(60, 40, 10, 2, 1.05, 32);
+module cajaHembra(x, y, z, r1, r2, fn = 100) {  
+    difference() {
+        union() {
+            caja(x, y, z, r1, fn);
+            baseEnganches(x, y, z, r1, r2, fn);
+        }
+        enganches(x, y, z, r1, r2, fn);
+    }
 }
+
+// Ejemplo de uso
+// translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 32);
+// En la caja hembra, en los agujeros los enganches, le damos 0.1 de holgura
+// cajaHembra(60, 40, 10, 2, 2.1, 32);
+// Caja sin enganches
+// translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
