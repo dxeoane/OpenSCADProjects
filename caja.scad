@@ -69,7 +69,7 @@ module cajaHembra(x, y, z, r1, r2, fn = 100) {
 // Ejemplo de uso
 // translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 32);
 // En la caja hembra, en los agujeros los enganches, le damos 0.1 de holgura
-cajaHembra(60, 40, 10, 2, 2.1, 32);
+// cajaHembra(60, 40, 10, 2, 2.1, 32);
 // Caja sin enganches
 // translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
 
