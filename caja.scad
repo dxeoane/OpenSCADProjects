@@ -70,3 +70,7 @@ module cajaHembra(x, y, z, r1, r2, fn = 100) {
 // cajaHembra(60, 40, 10, 2, 2.1, 32);
 // Caja sin enganches
 // translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
+
+// Caja alta
+// translate([80, 0, 0]) cajaMacho(40, 20, 30, 2, 2, 32);
+// cajaHembra(40, 20, 90, 2, 2.1, 32);
