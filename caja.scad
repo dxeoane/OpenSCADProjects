@@ -70,9 +70,12 @@ module cajaHembra(x, y, z, r1, r2, fn = 100) {
 // translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 32);
 // En la caja hembra, en los agujeros los enganches, le damos 0.1 de holgura
 // cajaHembra(60, 40, 10, 2, 2.1, 32);
+
 // Caja sin enganches
 // translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
 
 // Caja alta
 // translate([80, 0, 0]) cajaMacho(40, 20, 30, 2, 2, 32);
 // cajaHembra(40, 20, 90, 2, 2.1, 32);
+
+// En el caso de que la caja lleve enganches el espacio interior se reduce en 16 mm, tanto en x como en y
