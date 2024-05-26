@@ -26,4 +26,4 @@ module pinza(alto, radio) {
 }
 
 // Ejemplo
-pinza(alto = 20, radio = 16.2);
+// pinza(alto = 20, radio = 16.2);

@@ -10,20 +10,21 @@ module bordeHorizontal(r, largo, fn = 100) {
     translate([r, r, largo - r]) sphere(r = r, $fn = fn);
 }
 
-module baseEnganches(x, y, z, r1, r2, fn = 100) {
+module baseEnganches(x, y, z, r1, r2, n = 2, fn = 100) {
     radioExterior = r1 + r2;
-    translate([radioExterior, radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
-    translate([x - radioExterior, radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
-    translate([radioExterior, y - radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
-    translate([x - radioExterior, y - radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+    for (i = [radioExterior:(x - (2*radioExterior))/(n-1):x - radioExterior]) {
+        translate([i, radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);    
+        translate([i, y - radioExterior, r1]) cylinder(r = radioExterior, h = z - r1, $fn = fn);
+    }
 }
 
-module enganches(x, y, z, r1, r2, fn = 100) {
+module enganches(x, y, z, r1, r2, n = 2, fn = 100) {
     radioExterior = r1 + r2;
-    translate([radioExterior, radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([x - radioExterior, radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([radioExterior, y - radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
-    translate([x - radioExterior, y - radioExterior, r1]) cylinder(r = r2, h = z, $fn = fn);
+    h = z - (2*r1);
+    for (i = [radioExterior:(x - (2*radioExterior))/(n-1):x - radioExterior]) {
+        translate([i, radioExterior, (h / 2) + r1]) cylinder(r = r2, h = z, $fn = fn);
+        translate([i, y - radioExterior, (h / 2) + r1]) cylinder(r = r2, h = z, $fn = fn);
+    }
 }
 
 module caja(x, y, z, r, fn = 100) {  
@@ -48,28 +49,28 @@ module caja(x, y, z, r, fn = 100) {
     translate([x - d, y - d, 0]) bordeVertical(r, z, fn);    
 }
 
-module cajaMacho(x, y, z, r1, r2, fn = 100) {  
+module cajaMacho(x, y, z, r1, r2, n = 2, fn = 100) {  
     caja(x, y, z, r1, fn);
-    baseEnganches(x, y, z, r1, r2, fn);
-    enganches(x, y, z, r1, r2, fn);
+    baseEnganches(x, y, z, r1, r2, n, fn);
+    enganches(x, y, z, r1, r2, n, fn);
 }
 
-module cajaHembra(x, y, z, r1, r2, fn = 100) {  
+module cajaHembra(x, y, z, r1, r2, n = 2, fn = 100) {  
     difference() {
         union() {
             caja(x, y, z, r1, fn);
-            baseEnganches(x, y, z, r1, r2, fn);
+            baseEnganches(x, y, z, r1, r2, n, fn);
         }
-        enganches(x, y, z, r1, r2, fn);
+        enganches(x, y, z, r1, r2, n, fn);
         // Rebaje para ayudar a abrir la caja
         translate([x/2, y/2, z]) cube([x + 1, 5, 0.5], center = true);  
     }
 }
 
 // Ejemplo de uso
-// translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 32);
+// translate([80, 0, 0]) cajaMacho(60, 40, 10, 2, 2, 4, 32);
 // En la caja hembra, en los agujeros los enganches, le damos 0.1 de holgura
-// cajaHembra(60, 40, 10, 2, 2.1, 32);
+// cajaHembra(60, 40, 10, 2, 2.1, 4, 32);
 
 // Caja sin enganches
 // translate([0, 60, 0]) caja(60, 40, 10, 2, 32);
