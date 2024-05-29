@@ -49,13 +49,19 @@ module cajaInferior(){
 
 
 module cajaSuperior(){
+  displayX = 23;
+  displayY = 15;
+  displayZ = cajaZ - 3;
   difference(){
     union(){
-      cajaHembra(cajaX, cajaY, cajaZ, pared, pared + 0.1, n = 5, fn = 32);
-      translate([12, ((cajaY - 18) / 2) + 2, 0]) cube([25, 18, cajaZ - 3]);      
-    }
+      cajaHembra(cajaX, cajaY, cajaZ, pared, pared + 0.1, n = 5, fn = 32);      
+      // Display
+      translate([12, ((cajaY - (displayY + 2) ) / 2) + 1, 0]) cube([displayX + 2, displayY + 2, displayZ]);      
+    }    
+    // Corte para el display
+    translate([13, ((cajaY - displayY) / 2) + 1, -0.001]) cube([displayX, displayY, displayZ + 0.002]); 
+    // Corte para el USB
     translate([-0.001, ((cajaY - 16) / 2), cajaZ - 6 + 0.001]) cube([pared + 1, 16, 6]);  
-    translate([13, ((cajaY - 16) / 2) + 2, -0.001]) cube([23, 16, cajaZ - 3 + 0.002]); 
     espacioBotones = 20;
     translate([placaX + 15 + radioBoton ,(cajaY - espacioBotones) / 2,-0.001]) cylinder(r = radioBoton, h = cajaZ, $fn = 32);    
     translate([placaX + 15 + radioBoton ,((cajaY - espacioBotones) / 2) + espacioBotones,-0.001]) cylinder(r = radioBoton, h = cajaZ, $fn = 32);
@@ -63,7 +69,6 @@ module cajaSuperior(){
   translate([0, (cajaY - (placaY + (2*camaBorde))) / 2, pared - 0.001]) cama();
 }
 
-translate([0, 60, 0]) 
-cajaSuperior();
+//cajaSuperior();
 cajaInferior();
 
