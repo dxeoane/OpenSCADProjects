@@ -36,21 +36,21 @@ module joint(h, r, n, base) {
     }
 }
 
-module male(h, r, n, base) {
+module maleJoint(h, r, n, base) {
     union() {
         joint(h,r,n,base);
         translate([0,0,-0.001]) cylinder(r = r / 2, h = h + 0.002, center = false, $fn=100);  
     }
 }
 
-module female(h, r, n, base) {
+module femaleJoint(h, r, n, base) {
     translate([0,0,h]) rotate([180,0,0]) 
         difference() {
             cylinder(r = r + 2, h = h - 0.001, center = false, $fn=100);
-            translate([0,0,-0.001]) male(h, r + 0.05, n, base);
+            translate([0,0,-0.001]) maleJoint(h, r + 0.05, n, base);
         }
 } 
 
-// translate([0,30,0]) male(h = 5, r = 10, n = 6, base = 1);
-// female(h =5, r = 10, n = 6, base = 1);
+// translate([0,30,0]) maleJoint(h = 5, r = 10, n = 6, base = 1);
+// femaleJoint(h =5, r = 10, n = 6, base = 1);
 
