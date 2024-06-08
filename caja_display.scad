@@ -37,6 +37,7 @@ module caja(){
             translate([-0.5,0.5,-2 + 0.001]) cube([marcoX + 1, marcoY + 1, 2], center = false);
             // Tapon - exterior
             translate([marcoX - 10,37,-45]) rotate([30,0,0]) cylinder(r = 8, h = 10, $fn = 100);
+            // Ajustes para que entre a presion la placa
             for(i=[marcoX / 5:marcoX / 5:marcoX - (marcoX / 5)]) 
                 translate([i,0,0]) cylinder(r = 0.8, h = 5, $fn = 100);
             for(i=[marcoX / 5:marcoX / 5:marcoX - (marcoX / 5)]) 
@@ -61,9 +62,35 @@ module tapon(){
     }
 }
 
+module tapa() {    
+    intersection() {        
+        difference() {
+            translate ([2,2,0])minkowski(){
+                cube([placaX - 4, placaY + 1 - 4, 8], center = false); 
+                cylinder(r = 2, h = 0.001, center = false, $fn = 100);
+            }
+            translate ([3,3,2])minkowski(){
+                cube([placaX - 4 - 2, placaY + 1 - 4 - 2, 8], center = false); 
+                cylinder(r = 2, h = 0.001, center = false, $fn = 100);
+            }
+        } 
+        cube([placaX, placaY + 1, 8], center = false); 
+    }
+}
+
+module tapa_display() {
+    difference() {
+        translate([0,placaY,2 + 0.001]) rotate([180,0,0]) translate([0,0,0]) tapa();
+        translate([8 - 0.5,placaY - 8 - 15 - 1,0]) cube([62,16,2 + 0.002], center = false);
+    }
+}
+
 // tapon();
 
-caja();
+// caja();
+
+tapa_display();
+
 
 
 
