@@ -85,11 +85,34 @@ module tapa_display() {
     }
 }
 
+module boton_exterior() {
+    cylinder(r = 3, h = 2 + 0.002, center = false, $fn = 100); 
+    translate([-2,0,0]) cube([4, 10 + 3, 2 + 0.002], center = false);  
+}
+
+module boton_interior(caption = "") {
+    cylinder(r = 3 - 0.5, h = 1, center = false, $fn = 100); 
+    translate([-(4 - 1)/2,0,0]) cube([4 - 1, 10 + 3, 1], center = false); 
+    translate([0,0,-2]) cylinder(r = 2, h = 2, center = false, $fn = 100); 
+}
+
+module tapa_display_con_botones() {
+    difference() {
+        tapa_display();
+        for(i=[12.5:7.5:+12.5 + 52.5]) 
+            translate([i,5,0]) boton_exterior();
+    }
+    for(i=[12.5:7.5:+12.5 + 52.5]) 
+            translate([i,5 + 0.001, 1]) boton_interior();
+}
+
 // tapon();
 
 // caja();
 
-tapa_display();
+tapa_display_con_botones();
+
+
 
 
 
