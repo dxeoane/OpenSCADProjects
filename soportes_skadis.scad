@@ -121,6 +121,21 @@ module linterna() {
     }      
 }
 
+module movil(){
+    translate([0,-20,-20]) ganchos(2);
+    translate([0,-20,20]) ganchos(2);
+    difference(){
+        union(){
+            translate([0,-25,-25]) cube([2,50,50], center = false);
+            rotate([0,90,0]) cylinder(d = 35.5, h = 6, center = false, $fn = 100);
+        }
+        translate([-0.001,0,0]) rotate([0,90,0]) cylinder(d = 30, h = 4, center = false, $fn = 100);
+        translate([-0.001,0,0]) rotate([0,90,0]) cylinder(d = 3, h = 8, center = false, $fn = 100);
+        translate([-0.001,12,0]) rotate([0,90,0]) cylinder(d = 3, h = 8, center = false, $fn = 100);
+        translate([-0.001,-12,0]) rotate([0,90,0]) cylinder(d = 3, h = 8, center = false, $fn = 100);
+    }
+}
+
 
 
 // calibre_digital();
@@ -130,4 +145,4 @@ module linterna() {
 // cesto3();
 // cesto_eco3();
 
-linterna();
+movil();
