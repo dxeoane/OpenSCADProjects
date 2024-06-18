@@ -72,7 +72,7 @@ module assembledHinge(d, w, n, right = true, left = false, open = false) {
 }
 
 module hingeExample() {
-  hinge2(5, 5, 3, right = true, left = true);
+  assembledHinge(5, 5, 3, right = true, left = true);
   difference() {
       translate([-20,0,0]) cube([40,10,25]);
       translate([-18,2,2]) cube([36,6,21]);
