@@ -80,4 +80,16 @@ module hingeExample() {
   }
 }
 
+module hingeExample2() {
+  assembledHinge(5, 5, 3, right = true, left = true);
+  difference() {
+      minkowski() {
+          translate([-20,5,0]) cube([40,10,25]);
+          sphere(5, $fn = 100);
+      }      
+      translate([-20 - 1.5,5 - 1.5, -1.5]) cube([43,13,28]);
+      translate([-0.1,-1,-10])cube([0.2,30,60]);
+  }
+}
+
 hingeExample();
