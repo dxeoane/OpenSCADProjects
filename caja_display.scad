@@ -153,15 +153,26 @@ module sensor_recorte() {
 module sensor_hueco() {
     tapon_hueco(10, 10);
 }
+
+module sensor2() {
+    translate([-25,0,0]) {  
+        translate([-10,0,5]) rotate([0,0,-30])difference(){  
+            tapon(10,10);
+            cube([3, 8.5, 12], center = true);
+        }
+        translate([0,-5,0]) cube([20, 10, 2]);
+    }
+    translate([0,0,5]) difference(){
+        cube([10, 20, 10], center = true);
+        translate([0,0,-2]) cube([1.60, 15.4, 10], center = true);
+        cube([6, 12, 12], center = true);
+    }
+
+}
 // caja();
 
 // tapa_display_con_botones_y_tornillos();
 
-sensor();
-
-
-
-
-
+sensor2();
 
 
