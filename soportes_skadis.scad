@@ -136,6 +136,14 @@ module movil(){
     }
 }
 
+module regleta() {
+    difference() {
+        cube([185,60,40], center = false);
+        translate([5,5,5 + 0.001]) cube([175,50,40], center = false);
+        translate([15,15,20 + 0.001]) cube([175,30,40], center = false);
+    }
+    translate([(185 - 4*40)/2,60,40 - 10]) rotate([0,0,-90]) ganchos(5);
+}
 
 
 // calibre_digital();
@@ -145,4 +153,4 @@ module movil(){
 // cesto3();
 // cesto_eco3();
 
-movil();
+regleta();
