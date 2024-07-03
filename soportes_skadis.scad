@@ -138,13 +138,20 @@ module movil(){
 
 module regleta() {
     difference() {
-        cube([185,60,40], center = false);
-        translate([5,5,5 + 0.001]) cube([175,50,40], center = false);
-        translate([15,15,20 + 0.001]) cube([175,30,40], center = false);
+        cube([185,60,50], center = false);
+        translate([5,5,5 + 0.001]) cube([175,50,50], center = false);
+        translate([15,15,20 + 0.001]) cube([175,30,50], center = false);
     }
-    translate([(185 - 4*40)/2,60,40 - 10]) rotate([0,0,-90]) ganchos(5);
+    translate([(185 - 4*40)/2,60,50 - 10]) rotate([0,0,-90]) ganchos(5);
 }
 
+module caja75x45() {
+    difference() {
+        cube([80,50,30], center = false);
+        translate([2.5,2.5,2.5 + 0.001]) cube([75,45,50], center = false);
+    }
+    translate([(80 - 40)/2,50,30 - 5]) rotate([0,0,-90]) ganchos(2);
+}
 
 // calibre_digital();
 // lupa();
@@ -153,4 +160,4 @@ module regleta() {
 // cesto3();
 // cesto_eco3();
 
-regleta();
+caja75x45();
