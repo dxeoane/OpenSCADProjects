@@ -62,7 +62,7 @@ module tapon_cable(){
             cylinder(r = 8, h = 2, center = false, $fn = 100);  
             translate([0,0,10 + 2]) cylinder(r1 = 6 + 0.2, r2 = 4 , h = 4, center = false, $fn = 100);               
         }   
-        translate([0,0,-0.001]) cylinder(d= 3.5, h = 20, center = false, $fn = 100);
+        translate([0,0,-0.001]) cylinder(d= 4.2, h = 20, center = false, $fn = 100);
         cube([40,0.2,40], center = true);
     }
 }
@@ -133,6 +133,6 @@ module tapa_display_con_botones_y_tornillos() {
     }
 }
 
-caja();
+//caja();
 // tapa_display_con_botones_y_tornillos();
-// tapon_cable();
+ tapon_cable();
