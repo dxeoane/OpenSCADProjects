@@ -8,6 +8,9 @@ Stand = 30;
 // With hole for screw
 WithHole = true;
 
+// With top border
+WithTopBorder = false;
+
 module frame() {
     WidthAndBorder = Width + 6;
     HeightAndBorder = Height + 3;
@@ -15,6 +18,9 @@ module frame() {
         union() {            
             cube([WidthAndBorder,3,HeightAndBorder]);
             cube([WidthAndBorder,6,5]);       
+            if (WithTopBorder) {
+                translate([0,0,HeightAndBorder - 5]) cube([WidthAndBorder,6,5]);
+            }
             cube([5,6,HeightAndBorder]);  
             translate([WidthAndBorder - 5,0,0]) cube([5,6,HeightAndBorder]);     
             if (Stand > 0) {
