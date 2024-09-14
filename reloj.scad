@@ -24,6 +24,11 @@ module carcasa() {
             }
         }
     } 
+    minkowski() {
+        cube([marcoX, marcoY, 10], center = false);
+        cylinder(r = radio, $fn= 100);
+    }
+    
 }
 
 module caja(){
@@ -32,26 +37,26 @@ module caja(){
             difference() {
                 carcasa();
                 // Recortamos el hueco del marco
-                cube([marcoX, marcoY, 5 + 0.001], center = false);
+                cube([marcoX, marcoY, 20], center = false);
             }            
             translate([-0.5,0.5,-2 + 0.001]) cube([marcoX + 1, marcoY + 1, 2], center = false);
             // Tapon - exterior
             translate([marcoX - 10,37,-45]) rotate([30,0,0]) cylinder(r = 8, h = 10, $fn = 100);
             // Roscas - exterior
-            translate([4.5, 4.5, -6]) cylinder(r = 3, h = 6, center = false, $fn = 100);      
-            translate([4.5, placaY - 4.5, -6]) cylinder(r = 3, h = 6, center = false, $fn = 100);    
-            translate([placaX - 4.5, 4.5, -6]) cylinder(r = 3, h = 6, center = false, $fn = 100);      
-            translate([placaX - 4.5,placaY - 4.5, -6]) cylinder(r = 3, h = 6, center = false, $fn = 100);                         
+            translate([4.5, 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);      
+            translate([4.5, placaY - 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);    
+            translate([placaX - 4.5, 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);      
+            translate([placaX - 4.5,placaY - 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);                         
         }
         // Recorte del marco
         translate([0,10,-2 ]) cube([marcoX - 10, marcoY - 20, 2 + 0.002], center = false);
         // Tapon - interior
         translate([marcoX - 10,37,-45 - 0.001]) rotate([30,0,0]) cylinder(r = 6, h = 10 + 0.002, $fn = 100);   
         // Roscas - interior
-        translate([4.5, 4.5, -7]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
-        translate([4.5,placaY - 4.5,-7]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);    
-        translate([placaX - 4.5,4.5,-7]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
-        translate([placaX - 4.5,placaY - 4.5,-7]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
+        translate([4.5, 4.5, -5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
+        translate([4.5,placaY - 4.5,-5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);    
+        translate([placaX - 4.5,4.5,-5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
+        translate([placaX - 4.5,placaY - 4.5,-5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
     }    
 }
 
@@ -67,19 +72,25 @@ module tapon_cable(){
     }
 }
 
-module tapa() {    
-    intersection() {        
-        difference() {
-            translate ([2,2,0]) minkowski(){
-                cube([placaX - 4, placaY + 1 - 4, 8], center = false); 
-                cylinder(r = 2, h = 0.001, center = false, $fn = 100);
-            }
-            translate ([3,3,2]) minkowski(){
-                cube([placaX - 4 - 2, placaY + 1 - 4 - 2, 8], center = false); 
-                cylinder(r = 2, h = 0.001, center = false, $fn = 100);
-            }
-        } 
-        cube([placaX, placaY + 1, 8], center = false); 
+module tapa() {  
+    union() {  
+        intersection() {        
+            difference() {
+                translate ([2,2,0]) minkowski(){
+                    cube([placaX - 4, placaY + 1 - 4, 8], center = false); 
+                    cylinder(r = 2, h = 0.001, center = false, $fn = 100);
+                }
+                translate ([3,3,2]) minkowski(){
+                    cube([placaX - 4 - 2, placaY + 1 - 4 - 2, 8], center = false); 
+                    cylinder(r = 2, h = 0.001, center = false, $fn = 100);
+                }
+            } 
+            cube([placaX, placaY + 1, 8], center = false); 
+        }
+         minkowski() {
+            cube([marcoX, marcoY, 0.8], center = false);
+            cylinder(r = radio, h = 0.001, $fn= 100);
+        }
     }
 }
 
@@ -133,6 +144,16 @@ module tapa_display_con_botones_y_tornillos() {
     }
 }
 
-//caja();
+module tamponcillos(){
+    difference(){
+        cylinder(r = 3.3, h = 3, center = false, $fn = 100);
+        translate([0,0,0.4]) cylinder(r = 2.3, h = 3, center = false, $fn = 100);
+    }
+}
+
+// caja();
+// carcasa();
 // tapa_display_con_botones_y_tornillos();
- tapon_cable();
+// tapa();
+// tapon_cable();
+tamponcillos();
