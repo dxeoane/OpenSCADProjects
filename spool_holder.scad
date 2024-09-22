@@ -1,7 +1,7 @@
 
 
 
-module cone(macho) {
+module cone(male) {
   difference(){
     cylinder(d1 = 90, d2 = 60, h = 30, $fn = 200);
 
@@ -21,7 +21,7 @@ module cone(macho) {
             }
         }
     } 
-    if (!macho) {
+    if (!male) {
         // Guias
         for (i = [60, 180, 300]) {
             rotate([0,0,i]) {
@@ -30,7 +30,7 @@ module cone(macho) {
         } 
     }
   }
-  if (macho) {
+  if (male) {
         // Guias
         for (i = [60, 180, 300]) {
             rotate([0,0,i]) {
@@ -56,6 +56,7 @@ module key() {
 }
 
 // key();
+/*
 module holder() {
    difference(){
         cube([40,40,40]); 
@@ -64,6 +65,38 @@ module holder() {
    translate([40-1,40/2,40/2]) rotate([0,90,0]) cylinder(d = 7.5, h = 100 + 1, $fn = 200);
    
 }
+*/
+/*
+module holder() {  
+    difference(){
+        union() {  
+            difference(){
+                    cube([40,60,40]); 
+                    translate([(40-15-0.2)/2,60-26,-1]) cube([15 + 0.2,27,62]);
+            } 
+            translate([-5,(60-26)/2,40/2]) rotate([0,90,0]) cylinder(d = 20, h = 50, $fn = 200);   
+        }
+        translate([-6,(60-26)/2,40/2]) rotate([0,90,0]) cylinder(d = 8, h = 52, $fn = 200);   
+    }
+}
+*/
+module holder() {  
+    difference(){
+        union() {  
+            difference(){
+                    cube([40,60,40]); 
+                    translate([(40-15-0.2)/2,60-40,-1]) cube([15 + 0.2,40 + 0.1,62]);
+            } 
+            translate([-5,(60-40)/2,40/2]) rotate([0,90,0]) cylinder(d = 20, h = 50, $fn = 200);   
+        }
+        translate([-6,(60-40)/2,40/2]) rotate([0,90,0]) cylinder(d = 7.8, h = 52, $fn = 200);   
+        translate([40 - 5,60 - 5,40/2]) rotate([0,90,0]) cylinder(d = 8.2, h = 6, $fn = 6);  
+        translate([-1,60 - 5,40/2]) rotate([0,90,0]) cylinder(d = 4.5, h = 60 + 2, $fn = 200);  
+        translate([-1,60 - 5,40/2]) rotate([0,90,0]) cylinder(d1 = 30, d2 = 20, h = 6, $fn = 200);  
+    }
+}
+
+holder();
 
 module washer() {
     difference(){
@@ -72,4 +105,4 @@ module washer() {
     }
 }
 
-washer();
+// washer();
