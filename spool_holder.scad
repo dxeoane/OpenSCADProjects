@@ -41,7 +41,7 @@ module cone(male) {
     }
 }
 
-// cone(true);
+// cone(false);
 
 module key() {
     difference() {
@@ -96,7 +96,7 @@ module holder() {
     }
 }
 
-holder();
+// holder();
 
 module washer() {
     difference(){
@@ -106,3 +106,24 @@ module washer() {
 }
 
 // washer();
+
+module tube() {
+  difference(){
+    union() {
+        cylinder(d = 60, h = 70, $fn = 200);
+        cylinder(d = 120, h = 3, $fn = 200);
+    }
+
+    // Eje
+    translate([0,0,-1]) cylinder(d = 10, h = 70 + 2, $fn = 200);
+    // Rodamiento 1
+    translate([0,0,-1]) cylinder(d = 22, h = 9, $fn = 200);
+    // Rodamiento 2
+    translate([0,0,70-8]) cylinder(d = 22, h = 9, $fn = 200);
+    /* for (i = [0:60:360]) {
+        rotate([0,0,i]) translate([15,-5,-1]) cube([30, 10, 70 + 2]);       
+    }  */  
+  }
+}
+
+tube();
