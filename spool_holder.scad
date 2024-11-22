@@ -119,11 +119,32 @@ module tube() {
     // Rodamiento 1
     translate([0,0,-1]) cylinder(d = 22, h = 9, $fn = 200);
     // Rodamiento 2
-    translate([0,0,70-8]) cylinder(d = 22, h = 9, $fn = 200);
-    /* for (i = [0:60:360]) {
-        rotate([0,0,i]) translate([15,-5,-1]) cube([30, 10, 70 + 2]);       
-    }  */  
+    translate([0,0,70-8]) cylinder(d = 22, h = 9, $fn = 200);    
   }
 }
 
-tube();
+module clip() {
+    difference(){
+        union() {
+            cylinder(d = 12, h = 20, $fn = 200);
+            cylinder(d = 120, h = 3, $fn = 200);
+        }
+
+        // Eje
+        translate([0,0,-1]) cylinder(d = 8, h = 30 + 2, $fn = 200);  
+    }
+}
+
+module clamp() {
+    difference(){
+        union() {
+            cylinder(d = 12, h = 10, $fn = 200);
+            translate([-15,2,0]) cube([30,3,10]);
+            translate([-6,0,0]) cube([12,3,10]);
+        }
+        translate([0,0,-0.001]) cylinder(d = 7, h = 10 + 0.002, $fn = 200);
+        translate([-0.5,1,-0.001]) cube([1,5,10 + 0.002]);
+    }
+}
+
+clamp();

@@ -8,6 +8,8 @@ marcoY = placaY + 1;
 
 radio = 5;
 
+altoPanel = 30;
+
 module carcasa() {
     rotate([90,60,90]){
         difference() {
@@ -17,18 +19,25 @@ module carcasa() {
                         square([marcoY, marcoX], center = false);
                     }
                     sphere(radio, $fn= 100);
-                }                
+                }   
+                // Panel
+                translate([30,0,-radio]) cube([marcoY + radio - 30, altoPanel, marcoX + 2*radio], center = false);
+                translate([30,-radio,0]) cube([marcoY + radio - 30, radio, marcoX], center = false);
+                rotate([90,0,90]) cylinder(r = radio, h = marcoY + radio, center = false, $fn= 100);
+                translate([0,0,+marcoX]) rotate([90,0,90]) cylinder(r = radio, h = marcoY + radio, center = false, $fn= 100);
             }
             rotate_extrude(angle=60, $fn= 100) {
                 square([marcoY, marcoX], center = false);
             }
+            // Recorte panel
+            translate([-2,2,2]) cube([marcoY + radio, altoPanel - 4, marcoX - 4], center = false);
         }
     } 
+    
     minkowski() {
         cube([marcoX, marcoY, 10], center = false);
         cylinder(r = radio, $fn= 100);
-    }
-    
+    }    
 }
 
 module caja(){
@@ -41,7 +50,7 @@ module caja(){
             }            
             translate([-0.5,0.5,-2 + 0.001]) cube([marcoX + 1, marcoY + 1, 2], center = false);
             // Tapon - exterior
-            translate([marcoX - 10,37,-45]) rotate([30,0,0]) cylinder(r = 8, h = 10, $fn = 100);
+            rotate([30,0,0]) translate([marcoX - 10,altoPanel / 2,-marcoY - radio]) cylinder(r = 8, h = 10, center = false, $fn = 100);
             // Roscas - exterior
             translate([4.5, 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);      
             translate([4.5, placaY - 4.5, -4]) cylinder(r = 2.25, h = 6, center = false, $fn = 100);    
@@ -51,7 +60,9 @@ module caja(){
         // Recorte del marco
         translate([0,10,-2 ]) cube([marcoX - 10, marcoY - 20, 2 + 0.002], center = false);
         // Tapon - interior
-        translate([marcoX - 10,37,-45 - 0.001]) rotate([30,0,0]) cylinder(r = 6, h = 10 + 0.002, $fn = 100);   
+        rotate([30,0,0]) translate([marcoX - 10,altoPanel / 2, -marcoY - radio - 0.001]) cylinder(r = 6, h = 10 + 0.002, center = false, $fn = 100);
+        // Conector - interior
+        rotate([30,0,0]) translate([marcoX - 40,altoPanel / 2, -marcoY - radio - 0.001]) cylinder(d = 19, h = 10 + 0.002, center = false, $fn = 100);
         // Roscas - interior
         translate([4.5, 4.5, -5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);      
         translate([4.5,placaY - 4.5,-5]) cylinder(r = 1.25, h = 8, center = false, $fn = 100);    
@@ -130,6 +141,8 @@ module tapa_display_con_botones_y_tornillos() {
             translate([4.5,placaY - 4.5,-6]) cylinder(r = 4, h = 8, center = false, $fn = 100);    
             translate([placaX - 4.5,4.5 - 1,-6]) cylinder(r = 4, h = 8, center = false, $fn = 100);      
             translate([placaX - 4.5,placaY - 4.5,-6]) cylinder(r = 4, h = 8, center = false, $fn = 100);  
+
+            for (i = [1:1:8]) translate([4.5 + 7.5 * i, placaY - 4.5,-6]) cylinder(r = 2.8, h = 8, center = false, $fn = 100);  
         }
 
         translate([4.5,4.5 - 1,-4]) cylinder(r = 3.5, h = 8, center = false, $fn = 100);      
@@ -141,6 +154,9 @@ module tapa_display_con_botones_y_tornillos() {
         translate([4.5,placaY - 4.5,-7]) cylinder(r = 2, h = 8, center = false, $fn = 100);    
         translate([placaX - 4.5,4.5 - 1,-7]) cylinder(r = 2, h = 8, center = false, $fn = 100);      
         translate([placaX - 4.5,placaY - 4.5,-7]) cylinder(r = 2, h = 8, center = false, $fn = 100);  
+
+        for (i = [1:1:8]) translate([4.5 + 7.5 * i, placaY - 4.5,-7 - 0.001]) cylinder(r = 2, h = 8, center = false, $fn = 100);  
+        for (i = [1:1:8]) translate([4.5 + 7.5 * i, placaY - 4.5,-4 - 0.001]) cylinder(r = 1, h = 8, center = false, $fn = 100);  
     }
 }
 
@@ -151,9 +167,9 @@ module tamponcillos(){
     }
 }
 
-// caja();
+ // caja();
 // carcasa();
-// tapa_display_con_botones_y_tornillos();
+tapa_display_con_botones_y_tornillos();
 // tapa();
 // tapon_cable();
-tamponcillos();
+// tamponcillos();
