@@ -36,7 +36,7 @@ module bottom(){
     ]) translate(p) {
         difference() {
             cylinder(d = 10, h = ScrewZ, center = false, $fn = 100); 
-            translate([0,0,Thickness]) cylinder(d = 3, h = ScrewZ, center = false, $fn = 100); 
+            translate([0,0,Thickness]) cylinder(d = 2, h = ScrewZ, center = false, $fn = 100); 
         }   
     } 
 }
@@ -105,5 +105,5 @@ module top(){
 
 }
 
-top();
+bottomAndFront();
 
