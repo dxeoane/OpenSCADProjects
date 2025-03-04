@@ -1,5 +1,5 @@
 include <gancho.scad>;
-include <honeycomb.scad>;
+include <../libs/honeycomb.scad>;
 
 
 module calibre_digital() {
@@ -158,6 +158,6 @@ module caja75x45() {
 // cesto();
 // cesto2();
 // cesto3();
-// cesto_eco3();
+cesto_eco3();
 
-caja75x45();
+// caja75x45();

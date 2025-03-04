@@ -1,8 +1,10 @@
 internal_diameter = 8;
 external_diameter = 22;
 height = 6;
+// Longitud del mango de la herramienta
 handle = 10;
 
+// Herramienta para empujar un rodamiento a su posición
 module tool(){
     difference(){
         union(){

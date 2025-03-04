@@ -1,5 +1,5 @@
-include <vesa.scad>
-include <clamp.scad>
+include <../libs/vesa.scad>
+include <../libs/clamp.scad>
 
 // Distancia entre los agujeros
 holeDistance = 100; // [75,100]

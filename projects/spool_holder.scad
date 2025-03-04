@@ -1,6 +1,3 @@
-
-
-
 module cone(male) {
   difference(){
     cylinder(d1 = 90, d2 = 60, h = 30, $fn = 200);
@@ -56,30 +53,7 @@ module key() {
 }
 
 // key();
-/*
-module holder() {
-   difference(){
-        cube([40,40,40]); 
-        translate([(40-15-0.2)/2,40-26,-1]) cube([15 + 0.2,27,62]);
-   } 
-   translate([40-1,40/2,40/2]) rotate([0,90,0]) cylinder(d = 7.5, h = 100 + 1, $fn = 200);
-   
-}
-*/
-/*
-module holder() {  
-    difference(){
-        union() {  
-            difference(){
-                    cube([40,60,40]); 
-                    translate([(40-15-0.2)/2,60-26,-1]) cube([15 + 0.2,27,62]);
-            } 
-            translate([-5,(60-26)/2,40/2]) rotate([0,90,0]) cylinder(d = 20, h = 50, $fn = 200);   
-        }
-        translate([-6,(60-26)/2,40/2]) rotate([0,90,0]) cylinder(d = 8, h = 52, $fn = 200);   
-    }
-}
-*/
+
 module holder() {  
     difference(){
         union() {  

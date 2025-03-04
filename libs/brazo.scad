@@ -1,5 +1,4 @@
 include <joint.scad>
-include <gancho.scad>
 
 module rotula(){
     difference() { 

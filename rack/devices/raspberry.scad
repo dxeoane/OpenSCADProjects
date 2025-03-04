@@ -1,4 +1,4 @@
-include <../../honeycomb.scad>
+include <../../libs/honeycomb.scad>
 include <../front.scad>
 
 module raspberry(){   
@@ -111,6 +111,6 @@ module raspberry_front(){
     }    
 }
 
-raspberry();
-// raspberry_lid();
+// raspberry();
+raspberry_lid();
 // raspberry_front();

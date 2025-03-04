@@ -30,7 +30,7 @@ module cap() {
 // Este es el poste que conecta la tecla con el interruptor
 module pole() {
     crossX = 4;
-    crossY = 1.4.;
+    crossY = 1.4;
     h = height;
     difference() { 
         intersection() {

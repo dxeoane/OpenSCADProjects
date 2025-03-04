@@ -11,12 +11,8 @@ module clip(n) {
 
 }
 
-//for (j=[4:10]) {
-//    translate([20*(j-4),0,0]) clip(j);
-//}
-
-difference() {
-    cube([16,12,8], center = true);
-    cylinder(d = 8.2, h = 4 + 0.1, $fn = 6);
-    cylinder(d = 5, h = 20, $fn = 100, center = true);
+for (j=[4:10]) {
+    translate([20*(j-4),0,0]) clip(j);
 }
+
+
