@@ -9,4 +9,10 @@ module keystone() {
     }
 }
 
+module keystoneCut(l = 9.90 + 0.002){
+    w = 25;
+    h = 25;
+    cube([w, l, h + 2]);    
+}
+
 // keystone();

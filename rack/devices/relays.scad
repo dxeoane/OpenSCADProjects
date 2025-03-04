@@ -1,4 +1,5 @@
 include <../front.scad>
+include <../keystone.scad>
 
 SizeX = 95;
 SizeY = 110;
@@ -29,7 +30,8 @@ module bottom(){
     }  
     // Roscas de los tornillos
     for (p = [
-        [(SizeX - HolesX) / 2, (SizeY - HolesY) / 2 - ScrewY, 0],
+        // Quitamos el primer tornillo para dejar sitio para el keystone
+        // [(SizeX - HolesX) / 2, (SizeY - HolesY) / 2 - ScrewY, 0], 
         [(SizeX - HolesX) / 2 + HolesX, (SizeY - HolesY) / 2 - ScrewY, 0],
         [(SizeX - HolesX) / 2, (SizeY - HolesY) / 2 + HolesY + ScrewY, 0],
         [(SizeX - HolesX) / 2 + HolesX, (SizeY - HolesY) / 2 + HolesY + ScrewY, 0]
@@ -42,13 +44,27 @@ module bottom(){
 }
 
 module bottomAndFront(){
+    keystoneX = -4;
+    keystoneY = -10 - 0.001;
+    keystoneZ = 15 + 0.001;
+
     difference(){
         union(){
-            translate([-20,-10,40]) rotate([270,0,0]) front2();
+            translate([-20,-10,42]) rotate([270,0,0]) front2();
             bottom();
         }
+        // Recorte para los cables
         translate([(SizeX - HolesX) / 2 + 7, -15, 0]) cube([70, 30, SizeZ + 0.001]);
+        // Recorte para el conector rj45
+        translate([keystoneX, keystoneY, keystoneZ]) keystoneCut(l = 10 + 0.002);
+        // Boton
+        // translate([40,-10 -0.001,29]) rotate([-90,0,0]) {
+        //    translate([0,0,-1]) cylinder(d = 12, h = 11, center = false, $fn = 200);
+        //    translate([0,0,2]) cylinder(d = 20, h = 11, center = false, $fn = 200);
+        // }
     }
+    // Conector rj45
+    translate([keystoneX, keystoneY, keystoneZ]) keystone();
 }
 
 module cover(){
@@ -71,7 +87,8 @@ module top(){
         [(SizeX - HolesX) / 2 + HolesX, (SizeY - HolesY) / 2 + HolesY + ScrewY, 1],
     ];
     pins = [
-        [(SizeX - HolesX) / 2 + 5, (SizeY - HolesY) / 2 + 10, -10],
+        //  [(SizeX - HolesX) / 2 + 5, (SizeY - HolesY) / 2 + 10, -10],
+        [(SizeX - HolesX) / 2 + 5, (SizeY - HolesY) / 2 + 10 + 10, -10],
         [(SizeX - HolesX) / 2 + HolesX - 5, (SizeY - HolesY) / 2 + HolesY - 5, -10]
     ];
 
@@ -95,7 +112,8 @@ module top(){
             translate([SizeX/2, SizeY/2, 0]) cylinder(d = SizeX/2, h = topSizeZ + Thickness + 20, center = false, $fn = 100);
         }
         // Recortes para apretar los tornillos
-        translate([(SizeX - HolesX) / 2 + 7, - Thickness - 0.001 + 10, -0.001]) cube([70, 2 * Thickness + 8, SizeZ + 0.002]);
+        // translate([(SizeX - HolesX) / 2 + 7, - Thickness - 0.001 + 10, -0.001]) cube([70, 2 * Thickness + 8, SizeZ + 0.002]);
+        translate([(SizeX - HolesX) / 2 + 7 - 30, - Thickness - 0.001 + 10 - 20, -0.001]) cube([100, 2 * Thickness + 8 + 20, SizeZ + 0.002]);
         translate([(SizeX - HolesX) / 2 + 7, SizeY - 0.001 - 18, -0.001]) cube([32, 2 * Thickness + 8, SizeZ + 0.002]);
         
     }
@@ -105,5 +123,5 @@ module top(){
 
 }
 
-bottomAndFront();
-
+// bottomAndFront();
+top();
