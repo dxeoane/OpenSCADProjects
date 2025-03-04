@@ -1,5 +1,4 @@
-include <../raspberry.scad>
-
+// Medio frontal sin solapas
 module front() {
     screw_hole_diameter = 6;
     difference(){
@@ -20,6 +19,7 @@ module front() {
     }
 }
 
+// Medio frontal con solapas
 module front2() {
     union(){
         front();
@@ -33,46 +33,3 @@ module front2() {
         }
     }
 }
-
-module tplink(){    
-    difference(){
-        front();
-        translate([(254/2) - 80,(43.5 - 26) / 2, 5 - 0.001]) cube([80 + 0.001,26, 5 + 0.002]);
-        translate([(254/2) - 70,(43.5 - 26) / 2, -0.001]) cube([70 + 0.001,26, 5 + 0.002]);
-    }
-    difference(){
-        union() {
-            translate([(254/2) - 82, (43.5 - 30) / 2, 5]) cube([82, 30, 102]);
-            translate([(254/2) - 5, 0, 5]) cube([5, 43.5, 110]);
-        }
-        translate([(254/2) - 80, (43.5 - 30) / 2 + 2, 5 -0.001]) cube([80 + 0.001, 26, 100 + 0.001]);        
-        translate([254/2,(43.5 - 30) / 4, 20]) rotate([0,90,0]) cylinder(d = 3.05, h = 20, center = true, $fn = 32);
-        translate([254/2,(43.5 - 30) / 4, 110 - 20]) rotate([0,90,0]) cylinder(d = 3.05, h = 20, center = true, $fn = 32);     
-        translate([254/2,43.5 - (43.5 - 30) / 4, 20]) rotate([0,90,0]) cylinder(d = 3.05, h = 20, center = true, $fn = 32);
-        translate([254/2,43.5 - (43.5 - 30) / 4, 110 - 20]) rotate([0,90,0]) cylinder(d = 3.05, h = 20, center = true, $fn = 32);     
-        translate([(254/2) - 83,0,22]) cube([50,43.5,100]);
-    }
-}
-
-module raspberry_front(){
-    difference(){
-        front2(); 
-        translate([(254/2 - 16 - 60)/2 + 16,(43.5 - 24) / 2, -0.01]) {
-            // Recorte para las conexiones
-            cube([60,24,15 + 0.02]);  
-            // Agujeros del frontal
-            for (p=[[-10,-3,-0.01],[-10,20 - 3,-0.01],[60 + 10,-3,-0.01],[60 + 10,20 - 3,-0.01]]) {
-                translate(p) cylinder(d= 3.25, h = 15 + 0.02, center = false, $fn = 32);
-                translate(p) cylinder(d= 6.50, h = 3 + 0.02, center = false, $fn = 32);
-            }     
-        }
-    }    
-}
-
-module prueba_raspberry(){
-    raspberry_front();
-    // translate([60 + 15 + 16 + (254/2 - 16 - 90) / 2,2,90 + 10]) rotate([-90,0,0]) rotate([0,0,90]) raspberry();
-}
-
-// prueba_raspberry();
-// front2();

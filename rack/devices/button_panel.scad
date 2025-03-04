@@ -1,6 +1,6 @@
-include <./front.scad>
+include <../front.scad>
 
-module frontAndButtons(){
+module buttonPanel(){
     difference(){
         front2();
         for (p=[[254/8, 43.5/2, 0],[2*254/8, 43.5/2, 0]]) {
@@ -17,4 +17,4 @@ module frontAndButtons(){
     }
 }
 
-frontAndButtons();
+buttonPanel();

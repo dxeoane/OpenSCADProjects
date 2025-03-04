@@ -1,4 +1,5 @@
-include <honeycomb.scad>
+include <../../honeycomb.scad>
+include <../front.scad>
 
 module raspberry(){   
     difference(){
@@ -95,5 +96,21 @@ module raspberry_lid(){
   }
 }
 
-// raspberry();
+module raspberry_front(){
+    difference(){
+        front2(); 
+        translate([(254/2 - 16 - 60)/2 + 16,(43.5 - 24) / 2, -0.01]) {
+            // Recorte para las conexiones
+            cube([60,24,15 + 0.02]);  
+            // Agujeros del frontal
+            for (p=[[-10,-3,-0.01],[-10,20 - 3,-0.01],[60 + 10,-3,-0.01],[60 + 10,20 - 3,-0.01]]) {
+                translate(p) cylinder(d= 3.25, h = 15 + 0.02, center = false, $fn = 32);
+                translate(p) cylinder(d= 6.50, h = 3 + 0.02, center = false, $fn = 32);
+            }     
+        }
+    }    
+}
+
+raspberry();
 // raspberry_lid();
+// raspberry_front();

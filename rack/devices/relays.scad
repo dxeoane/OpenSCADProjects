@@ -1,4 +1,4 @@
-include <./front.scad>
+include <../front.scad>
 
 SizeX = 95;
 SizeY = 110;
