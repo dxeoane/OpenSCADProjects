@@ -1,4 +1,5 @@
 local/
 secret/
+random/
 *.stl
 *.3mf
