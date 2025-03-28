@@ -60,8 +60,78 @@ module knob() {
     }
 }
 
+module knob2() {
+    difference() {
+        union() {
+            cylinder(d = 16, h = 16, $fn = 200);
+            for (i = [30:30:360]) {
+                rotate([0, 0, i]) translate([0, 8, 0]) cylinder(d = 2, h = 16, $fn = 200);
+            }
+        }
+        translate([0, 0, -0.001]) cylinder(d = 4.8, h = 16.002, $fn = 200);
+        translate([0, 0, -0.001]) cylinder(d = 8, h = 10, $fn = 6);
+    }
+}
+
+module relays() {
+    x = (254 / 2) - 16 - 15 - 0.4;
+    HolesX = 85;
+    HolesY = 80;
+    HolesZ = 10;
+    difference(){
+        translate([x,0,0]) rotate([-90,0,0]) rotate([0,0,180]) {
+            translate([-16 - 5, 43.5 - 5 - 0.4, 0]) rotate([0,0,180]) mirror([1,0,0]) slot();
+            cube([x, 2, 110]);  
+        }  
+        translate([10,-1,5]) cube([x - 20, 30, 25]);
+    }
+    // Soportes de la placa
+    for (p = [
+        [(x - HolesX) / 2, 20, 0],
+        [(x - HolesX) / 2 + HolesX, 20, 0],
+        [(x - HolesX) / 2, 20 + HolesY, 0],
+        [(x - HolesX) / 2 + HolesX, 20 + HolesY, 0]
+    ]) translate(p) {
+        difference(){
+            cylinder(d = 6, h = HolesZ, center = false, $fn = 100);   
+            translate([0,0,-0.001]) cylinder(d = 2, h = HolesZ + 0.002, center = false, $fn = 100);   
+        }   
+    }  
+}
+
+module adapter(){    
+    width = 25/2 + 32 + 15.875/2;
+    height = 44.5 * 2; // 2U
+    screw_hole_diameter = 6;
+    difference() {
+        // Base
+        union() {
+            cube([width,height,5]);
+            translate([width - 20,0,0]) cube([20, height, 10]);
+        }
+        // Agujeros estandar
+        translate([width - 15.875/2, 0, 0]) for (i=[0:44.50:44.50]) {
+            translate([0,i + 6.35,-0.001]) cylinder(d = 4 + 1, h = 20 + 0.002, center = false, $fn = 200);
+            translate([0,i + 6.35 + 15.875,-0.001]) cylinder(d = screw_hole_diameter + 1, h = 20 + 0.002, center = false, $fn = 200);
+            translate([0,i + 6.35 + 15.875  + 15.875,-0.001]) cylinder(d = screw_hole_diameter + 1, h = 20 + 0.002, center = false, $fn = 200);
+
+            translate([0,i + 6.35,5]) cylinder(d = 8, h = 20 + 0.002, center = false, $fn = 6);
+            translate([0,i + 6.35 + 15.875, 5]) cylinder(d = screw_hole_diameter * 2, h = 20 + 0.002, center = false, $fn = 6);
+            translate([0,i + 6.35 + 15.875  + 15.875, 5]) cylinder(d = screw_hole_diameter * 2, h = 20 + 0.002, center = false, $fn = 6);
+        }
+        translate([25/2,25 / 2,-0.001]) cylinder(d = 8, h = 5 + 0.002, center = false, $fn = 32);
+        translate([25/2,height - 25 / 2,-0.001]) cylinder(d = 8, h = 5 + 0.002, center = false, $fn = 32);
+        translate([25/2 - 8/2,25 / 2,-0.001]) cube([8, height - 25,5 + 0.002]);
+    }
+}
 
 
-slot();
+// slot();
 //nut();
 //translate([0,-30,0])knob();
+// knob2();
+// relays();
+
+mirror([1,0,0]) adapter();
+
+
