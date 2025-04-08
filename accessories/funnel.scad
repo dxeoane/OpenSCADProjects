@@ -1,7 +1,11 @@
-BigDiameter = 90;
-SmallDiameter = 22;
-Height = 50;
-Deep = 30;
+// External diameter of the big end
+BigDiameter = 90; // [15:150]
+// External diameter of the small end
+SmallDiameter = 22; // [15:90]
+// Height of the big end
+Height = 50; // [15:90] 
+// Height of the small end
+Deep = 30; // [15:90]
 
 module funnel(){
     difference(){
