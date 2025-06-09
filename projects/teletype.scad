@@ -74,7 +74,7 @@ module caja(){
         // Tapon - interior
         rotate([30,0,0]) translate([marcoX - 10,altoPanel / 2, -marcoY - radio - 0.001]) cylinder(r = 6, h = 10 + 0.002, center = false, $fn = 100);
 
-        // Tapon - interior
+        // Botones
         rotate([30,0,0]) translate([15,altoPanel / 2, -marcoY - radio - 0.001]) cylinder(r = 6.6, h = 10 + 0.002, center = false, $fn = 100);
         rotate([30,0,0]) translate([35,altoPanel / 2, -marcoY - radio - 0.001]) cylinder(r = 6.6, h = 10 + 0.002, center = false, $fn = 100);
 
@@ -121,6 +121,6 @@ module tapa() {
     }
 }
 
-//caja();
+caja();
 // tapa();
-tapon_cable();
+// tapon_cable();
