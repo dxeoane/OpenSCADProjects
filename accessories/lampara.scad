@@ -1,12 +1,23 @@
-include <clamp.scad>
+module cono(d1, d2, h) {
+    hull(){
+        cylinder(d=d1, h=0.001, center=false, $fn=200);
+        translate([0, 0, h]) sphere(d=d2, $fn=200);
+    }
+}
 
-difference() {
-    clamp(30, 11, 0);
-    translate([-11 -2.5,-11,0]) rotate([0,90,0]) cylinder(d = 10, h = 50, center = true, $fn = 32);
-    translate([-11 -2.5,11,0]) rotate([0,90,0]) cylinder(d = 10, h = 50, center = true, $fn = 32);
+module cacoleta(d1, d2, h) {
+    difference(){
+        union() {
+            difference() {
+                cono(d1, d2, h);
+                translate([0, 0, -0.001]) cono(d1 - 6, d2 - 6, h);
+            }
+            translate([0, 0, h + (d2 / 2) - 3]) cylinder(d=12 + 6, h=30, center=false, $fn=200);
+        }
+        translate([0, 0, h + (d2 / 2) - 6 - 0.001]) cylinder(d=12, h=30 + 3 + 0.002, center=false, $fn=200);
+    }
 }
-difference() {
-    translate([-11 -2.5,0,0]) cube([5,42,30], center=true);
-    translate([-11 -2.5,-11,0]) rotate([0,90,0]) cylinder(d = 5, h = 8, center = true, $fn = 32);
-    translate([-11 -2.5,11,0]) rotate([0,90,0]) cylinder(d = 5, h = 8, center = true, $fn = 32);
-}
+
+
+
+cacoleta(120, 80, 80);
