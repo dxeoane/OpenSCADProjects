@@ -16,4 +16,4 @@ module etiqueta(width = 60, height = 16, text = "Etiqueta") {
     }
 }
 
-etiqueta(width = 60, height = 12, text = "Raspberry");
+etiqueta(width = 40, height = 12, text = "PC");
