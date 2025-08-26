@@ -19,5 +19,5 @@ module cacoleta(d1, d2, h) {
 }
 
 
-
-cacoleta(120, 80, 80);
+// Recordar el dimatero del tubo, que no se pasa como parametro
+cacoleta(120, 80, 40);
