@@ -8,6 +8,8 @@ Height = 20; // [15:60]
 Border = 1; // [-2:0.1:2]
 // Specifies how much the cylinder’s diameter should be reduced.
 Thinning = 0; // [0:0.1:2]
+// Add keychain hole
+KeychainHole = false;
 
 module key() {
     r = 2*Altitude/3;
@@ -19,15 +21,21 @@ module key() {
                     translate([0, 0, Height]) cylinder(h = 20, r = r + max(Border, 0), $fn=200);  
                     translate([40, 0, Height + 20 - 5]) cylinder(h = 5, d = 5, $fn=200);
                 } 
-            }            
+            }  
+            if (KeychainHole) {
+                translate([40 + 5, 0, Height + 20 - 5]) cylinder(h = 5, d = 10, $fn=200);     
+            }     
         }
         translate([0, 0, -0.001]) intersection() {
             union() {
                 cylinder(h = Height, r = r, $fn=3); 
                 cylinder(h = 1, r1 = r + 1, r2 = r, $fn=3);            
             } 
-            cylinder(h = Height + 20, r = r + Border, $fn=200);  
+            cylinder(h = Height + 20, r = r + Border, $fn=200);              
         }
+        if (KeychainHole) {
+            translate([40 + 5, 0, Height + 20 - 5 - 0.001]) cylinder(h = 5 + 0.002, d = 5, $fn=200);   
+        }         
     }
 }
 
