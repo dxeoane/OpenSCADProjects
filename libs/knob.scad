@@ -157,7 +157,7 @@ module knob13(d, h, n){
     difference() {
         cylinder(h = h, d1 = d, d2 = d - d2);
         for (i = [0:n-1]) {
-                rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
+            rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
         }
     }   
 }
@@ -171,11 +171,21 @@ module knob14(d, h, n){
             cylinder(h = h, d1 = d, d2 = d - d2);
         }
         for (i = [0:n-1]) {
-                rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
+            rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
         }
     }   
 }
 
+module knob15(d, h, n){
+    d2 = 3.14159*d/(4*n);
+    difference() {
+        cylinder(h = h, d = d);
+        for (i = [0:n-1]) {
+            rotate([30, 0, (i + 0.5) * 360/n]) translate([d/2, 0, 0]) cylinder(h = 10*h, d = d2, center=true);
+            rotate([-30, 0, i * 360/n]) translate([d/2, 0, 0]) cylinder(h = 10*h, d = d2, center=true);
+        }
+    }   
+}
 
 knob(30, 5, 8);
 translate([0, 45, 0]) knob(30, 5, 6);
@@ -206,3 +216,9 @@ translate([135, 45, 0]) knob14(30, 20, 6);
 translate([135, 90, 0]) knob14(30, 20, 4);
 translate([135, -45, 0]) knob14(30, 20, 16);
 translate([135, -90, 0]) knob14(30, 20, 32);
+
+translate([180, 0, 0]) knob15(30, 5, 8);
+translate([180, 45, 0]) knob15(30, 5, 6);
+translate([180, 90, 0]) knob15(30, 5, 4);
+translate([180, -45, 0]) knob15(30, 5, 16);
+translate([180, -90, 0]) knob15(30, 5, 32);
