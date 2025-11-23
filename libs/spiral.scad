@@ -7,8 +7,8 @@ module turn(diameter, height, width, segments) {
         angle = i * angleStep;
         next_angle = next_i * angleStep;
         hull() {
-            translate([ r * cos(angle), r * sin(angle), (i / segments) * height]) sphere(d=width, $fn=16);
-            translate([ r * cos(next_angle), r * sin(next_angle), (s + 1) / segments * height]) sphere(d=width, $fn=16);
+            translate([ r * cos(angle), r * sin(angle), (i / segments) * height]) sphere(d=width, $fn=32);
+            translate([ r * cos(next_angle), r * sin(next_angle), (s + 1) / segments * height]) sphere(d=width, $fn=32);
         }
     }   
 }

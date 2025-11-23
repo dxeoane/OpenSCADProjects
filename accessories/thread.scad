@@ -25,10 +25,25 @@ module female(d,h,t,w){
     } 
 }
 
-translate([60, 0 ,0]) {
-    cylinder(h=5, d=30, $fn=100);
-    translate([0, 0, 5 - 0.001]) male(20, 10, 2, 2);
+module knob(d, h, n){
+    d2 = 3.14159*d/(2*n);
+    difference() {
+        union() {
+            for (i = [0:n-1]) {
+                rotate([0, 0, i * 360/n]) translate([d/2, 0, 0]) cylinder(h = h, d = d2, $fn=100);
+            }
+            cylinder(h = h, d = d);
+        }
+        for (i = [0:n-1]) {
+                rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2, $fn=100);
+        }
+    }   
 }
 
-cylinder(h=5, d=30, $fn=100);
-translate([0, 0, 5 - 0.001]) female(20, 20, 4, 2);
+translate([60, 0 ,0]) {
+    knob(40, 5, 6);
+    translate([0, 0, 5 - 0.001]) male(20, 40, 4, 5);
+}
+
+knob(40, 5, 6);
+translate([0, 0, 5 - 0.001]) female(20, 40, 4, 5);
