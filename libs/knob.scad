@@ -220,6 +220,19 @@ module knob17(d, h, n){
     translate([0, -1, 0]) cube([d / 2, 2, h2]); 
 }
 
+module knob18(d, h, n){
+    d2 = 3.14159*d/(2*n);
+    difference() {
+        union(){
+            cylinder(h = h - 5, d = d);
+            translate([0, 0, h - 5]) cylinder(h = 5, d1 = d, d2 = d - d2);
+        }
+        for (i = [0:n-1]) {
+            rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
+        }
+    }   
+}
+
 
 knob(30, 5, 8);
 translate([0, 45, 0]) knob(30, 5, 6);
@@ -269,5 +282,9 @@ translate([270, 90, 0]) knob16(30, 20, 4);
 translate([270, -45, 0]) knob16(30, 20, 16);
 translate([270, -90, 0]) knob16(30, 20, 32);
 
-
+translate([315, 0, 0]) knob18(30, 20, 6);
+translate([315, 45, 0]) knob18(30, 20, 8);
+translate([315, 90, 0]) knob18(30, 20, 4);
+translate([315, -45, 0]) knob18(30, 20, 16);
+translate([315, -90, 0]) knob18(30, 20, 32);
 
