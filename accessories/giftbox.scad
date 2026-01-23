@@ -6,5 +6,5 @@ module giftbox(diameter, height){
 }
 
 // Ejemplo de uso
-// giftbox(120, 130);
-giftbox(120 + 2 + 0.4, 20);
+//giftbox(120, 120);
+giftbox(120 + 2 + 0.4, 60);

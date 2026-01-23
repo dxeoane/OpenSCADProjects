@@ -179,4 +179,19 @@ module pieceD(){
     cylinder(h=5, d=30, $fn=100);
 }
 
-pieceA3();
+// Pincho
+module pieceE(){
+    cylinder(h=20, d1=13.5, d2=15, $fn=100);
+    translate([0,0,20]) cylinder(h=15, d1=18, d2= 0, $fn=100);
+}
+
+module pieceF(){
+    translate([0,0,5]) cylinder(h=20, d1=15, d2=13.5, $fn=100);
+    difference() {
+        cylinder(h=55, d=30 + 2*5 + 1, $fn=100);
+        translate([0,0,5]) cylinder(h=55, d=30, $fn=100);
+        translate([0,-30 / 2,5]) cube([32,30,60]);
+    }
+}
+
+pieceF();
