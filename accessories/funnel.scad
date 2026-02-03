@@ -1,3 +1,4 @@
+Model = "Simple"; // ["Simple", "With Vent"]
 // External diameter of the big end
 BigDiameter = 90; // [15:150]
 // External diameter of the small end
@@ -34,4 +35,19 @@ module funnel(){
     }
 }
 
-funnel();
+module funnel2(){    
+    difference(){
+        union(){
+            cylinder(d1 = BigDiameter, d2 = SmallDiameter,  h = Height, center = false, $fn= 200);
+            cylinder(d = BigDiameter + 5,  h = 2, center = false, $fn= 200);
+            cylinder(d = SmallDiameter,  h = Height + Deep, center = false, $fn= 200);
+        }        
+        translate([0,0,-0.001]) cylinder(d1 = BigDiameter - 2, d2 = SmallDiameter - 2,  h = Height, center = false, $fn= 200);
+        translate([0,0,-0.001]) cylinder(d = SmallDiameter - 2,  h = Height + Deep + 0.002, center = false, $fn= 200);        
+    }  
+}
+
+if (Model == "Simple")
+    funnel2();
+else 
+    funnel();
