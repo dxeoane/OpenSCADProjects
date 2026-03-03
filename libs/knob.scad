@@ -233,6 +233,17 @@ module knob18(d, h, n){
     }   
 }
 
+module knob19(d, n){
+    d2 = 3.14159*d/(2*n);
+    for (i = [0:n-1]) {
+        rotate([0, 0, i * 360/n]) hull() {
+            sphere(d = d2 / 3);
+            translate([d/2, 0, 0])  sphere(d = d2);
+        }
+    }
+    sphere(d = d2);
+    translate([0, 0, -d2/4]) cylinder(h = d2/2, d = d2, center=true);
+}
 
 knob(30, 5, 8);
 translate([0, 45, 0]) knob(30, 5, 6);
@@ -287,4 +298,10 @@ translate([315, 45, 0]) knob18(30, 20, 8);
 translate([315, 90, 0]) knob18(30, 20, 4);
 translate([315, -45, 0]) knob18(30, 20, 16);
 translate([315, -90, 0]) knob18(30, 20, 32);
+
+translate([360, 0, 0]) knob19(30, 5);
+translate([360, 45, 0]) knob19(30, 8);
+translate([360, 90, 0]) knob19(30, 4);
+translate([360, -45, 0]) knob19(30, 3);
+translate([360, -90, 0]) knob19(30, 2);
 
