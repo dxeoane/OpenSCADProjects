@@ -15,6 +15,25 @@ module knob(d, h, n){
     }   
 }
 
+module knob1b(d, h, n){
+    d2 = 3.14159*d/(2*n);
+    difference() {
+        union() {
+            for (i = [0:n-1]) {
+                rotate([0, 0, i * 360/n]) translate([d/2, 0, 0]) {
+                    cylinder(h = h, d = d2);
+                    translate([0, 0, h]) sphere(d = d2);
+                    sphere(d = d2);
+                }
+            }
+            cylinder(h = h, d = d);
+        }
+        for (i = [0:n-1]) {
+                rotate([0, 0, (i + 0.5) * 360/n]) translate([d/2, 0, -0.001]) cylinder(h = h + 0.002, d = d2);
+        }
+    }   
+}
+
 module knob2(d1, h, n){
     d2 = 3.14159*d1/(2*n);
     difference() {
@@ -32,6 +51,26 @@ module knob3(d, h, n){
     }
     cylinder(h = h, d = d);
 }
+
+// tarda mucho tiempo en renderizar. Bajar el valor de $fn hace que se renderice más rápido, pero el resultado es peor
+module knob3b(d, h, n){
+    d2 = 3.14159*d/(2*n);
+    for (i = [0:(2*n)-1]) {
+        rotate([0, 0, i * 360/(2*n)]) {
+            // translate([d/2, 0, 0]) cylinder(h = h, d1 = 0, d2 = d2);
+            hull() {
+                translate([d/2, 0, h]) sphere(d = d2);
+                translate([d/2, 0, 0]) sphere(d = 0.001);
+            }
+            hull() {
+                translate([d/2, 0, h]) sphere(d = d2);
+                translate([0, 0, h]) sphere(d = 0.001);
+            }
+        }
+    }
+    cylinder(h = h, d = d);    
+}
+
 
 // tarda mucho tiempo en renderizar
 module knob4(d1, h, n){
@@ -245,7 +284,7 @@ module knob19(d, n){
     translate([0, 0, -d2/4]) cylinder(h = d2/2, d = d2, center=true);
 }
 
-knob(30, 5, 8);
+translate([0, 0, 0]) knob(30, 5, 8);
 translate([0, 45, 0]) knob(30, 5, 6);
 translate([0, 90, 0]) knob(30, 5, 3);
 translate([0, -45, 0]) knob(30, 5, 16);
