@@ -136,4 +136,4 @@ module thread_example3() {
     translate([0, 0, 5 - 0.001]) hfemale(d, height, width, 10);
 }
 
-thread_example3();
+// thread_example3();
