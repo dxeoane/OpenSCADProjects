@@ -1,6 +1,6 @@
-internal_diameter = 8;
-external_diameter = 22;
-height = 6;
+internal_diameter = 10;//8;
+external_diameter = 26;//22;
+height = 8;//6;
 // Longitud del mango de la herramienta
 handle = 10;
 
