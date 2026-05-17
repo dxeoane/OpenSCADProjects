@@ -136,4 +136,19 @@ module thread_example3() {
     translate([0, 0, 5 - 0.001]) hfemale(d, height, width, 10);
 }
 
-// thread_example3();
+// Tornillo sin holgura, con la rosca fina
+module thread_example4() {
+    width = 2;
+    height = 20;
+    d = 20;
+
+    translate([60, 0 ,0]) {
+        knob(40, 5, 6);
+        translate([0, 0, 5 - 0.001]) hmale(d, height, width, true);
+    }
+
+    knob(40, 5, 6);
+    translate([0, 0, 5 - 0.001]) hfemale(d, height, width);
+}
+
+thread_example4();
