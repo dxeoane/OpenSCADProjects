@@ -246,7 +246,6 @@ module stripe_b() {
 }
 
 // box_a();
-// box_b();
-stripe_a(); translate([20, 0, 0]) stripe_a(); translate([40, 0, 0]) stripe_b();
-// box_b();
+box_b();
+// stripe_a(); translate([20, 0, 0]) stripe_a(); translate([40, 0, 0]) stripe_b();
 
