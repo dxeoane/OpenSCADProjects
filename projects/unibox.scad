@@ -17,8 +17,9 @@ SCREW_HEAD_DIAMETER = POLE_DIAMETER - 2;
 // POLE_DIAMETER = HOLE_DIAMETER * 3 + 2;
 
 WIRE_DIAMETER = 5;
-
 GRILLE_WIDTH_X = 2;
+WEDGES_COUNT_X = 6; // [1:8]
+WEDGES_COUNT_Y = 2; // [1:8]
 
 POLES = [
     [POLE_DIAMETER/2,POLE_DIAMETER/2],
@@ -43,38 +44,6 @@ AUX_POLES = [
     [BOX_X/2 + POLE_DIAMETER,BOX_Y - POLE_DIAMETER],
     [BOX_X/2 - POLE_DIAMETER,BOX_Y - POLE_DIAMETER],
     [BOX_X - POLE_DIAMETER * 2,BOX_Y - POLE_DIAMETER]
-];
-
-WEDGES_BOTTOM = [
-    [BOX_X / 8, 0],
-    [2 * BOX_X / 8, 0],
-    [3 * BOX_X / 8, 0],    
-    [5 * BOX_X / 8, 0],
-    [6 * BOX_X / 8, 0],
-    [7 * BOX_X / 8, 0],
-];
-
-WEDGES_TOP = [
-    [BOX_X / 8, BOX_Y - WALL_THICKNESS],
-    [2 * BOX_X / 8, BOX_Y - WALL_THICKNESS],
-    [3 * BOX_X / 8, BOX_Y - WALL_THICKNESS],    
-    [5 * BOX_X / 8, BOX_Y - WALL_THICKNESS],
-    [6 * BOX_X / 8, BOX_Y - WALL_THICKNESS],
-    [7 * BOX_X / 8, BOX_Y - WALL_THICKNESS],    
-];
-
-WEDGES_LEFT = [
-    [0, 2 * BOX_Y / 8],
-    [0, 3 * BOX_Y / 8],    
-    [0, 5 * BOX_Y / 8],
-    [0, 6 * BOX_Y / 8]
-];
-
-WEDGES_RIGHT = [
-    [BOX_X - WALL_THICKNESS, 2 * BOX_Y / 8],
-    [BOX_X - WALL_THICKNESS, 3 * BOX_Y / 8],    
-    [BOX_X - WALL_THICKNESS, 5 * BOX_Y / 8],
-    [BOX_X - WALL_THICKNESS, 6 * BOX_Y / 8],  
 ];
 
 module box(){
@@ -161,36 +130,44 @@ module wedge_left(){
 
 module wedges(){
    translate([WALL_THICKNESS, WALL_THICKNESS, WALL_THICKNESS]) {
-        for (p = WEDGES_BOTTOM) {
-           translate(p) wedge_bottom();
+        if (WEDGES_COUNT_X > 1) {
+            for (i = [1:WEDGES_COUNT_X]) {
+                translate([i * (BOX_X - 2 * WALL_THICKNESS) / (WEDGES_COUNT_X + 1), 0, 0]) wedge_bottom();
+            }
+            for (i = [1:WEDGES_COUNT_X]) {
+                translate([i * (BOX_X - 2 * WALL_THICKNESS) / (WEDGES_COUNT_X + 1), BOX_Y - WALL_THICKNESS, 0]) wedge_top();
+            }
         }
-        for (p = WEDGES_TOP) {
-           translate(p) wedge_top();
-        }
-        for (p = WEDGES_LEFT) {
-           translate(p) wedge_left();
-        }
-        for (p = WEDGES_RIGHT) {
-           translate(p) wedge_right();
+        if (WEDGES_COUNT_Y > 1) {
+            for (i = [1:WEDGES_COUNT_Y]) {
+                translate([0, i * (BOX_Y - 2 * WALL_THICKNESS) / (WEDGES_COUNT_Y + 1), 0]) wedge_left();
+            }
+            for (i = [1:WEDGES_COUNT_Y]) {
+                translate([BOX_X - WALL_THICKNESS, i * (BOX_Y - 2 * WALL_THICKNESS) / (WEDGES_COUNT_Y + 1), 0]) wedge_right();
+            }
         }
    } 
 }
 
 module wedges_b(){
    translate([WALL_THICKNESS, WALL_THICKNESS, WALL_THICKNESS]) {
-        translate([WALL_THICKNESS + 1, 0, 0]) for (p = WEDGES_BOTTOM) {
-           translate(p) wedge_bottom();
+        if (WEDGES_COUNT_X > 1) {
+            translate([WALL_THICKNESS + 1, 0, 0]) for (i = [1:WEDGES_COUNT_X]) {
+                translate([i * (BOX_X - 2 * WALL_THICKNESS) / (WEDGES_COUNT_X + 1), 0, 0]) wedge_bottom();
+            }
+            translate([WALL_THICKNESS + 1, 0, 0]) for (i = [1:WEDGES_COUNT_X]) {
+                translate([i * (BOX_X - 2 * WALL_THICKNESS) / (WEDGES_COUNT_X + 1), BOX_Y - WALL_THICKNESS, 0]) wedge_top();
+            }
         }
-        translate([WALL_THICKNESS + 1, 0, 0]) for (p = WEDGES_TOP) {
-           translate(p) wedge_top();
+        if (WEDGES_COUNT_Y > 1) {
+            translate([0, WALL_THICKNESS + 1, 0]) for (i = [1:WEDGES_COUNT_Y]) {
+                translate([0, i * (BOX_Y - 2 * WALL_THICKNESS) / (WEDGES_COUNT_Y + 1), 0]) wedge_left();
+            }
+            translate([0, WALL_THICKNESS + 1, 0]) for (i = [1:WEDGES_COUNT_Y]) {
+                translate([BOX_X - WALL_THICKNESS, i * (BOX_Y - 2 * WALL_THICKNESS) / (WEDGES_COUNT_Y + 1), 0]) wedge_right();
+            }
         }
-        translate([0, WALL_THICKNESS + 1, 0]) for (p = WEDGES_LEFT) {
-           translate(p) wedge_left();
-        }
-        translate([0, WALL_THICKNESS + 1, 0]) for (p = WEDGES_RIGHT) {
-           translate(p) wedge_right();
-        }
-   } 
+   }    
 }
 
 module grille(){
@@ -245,7 +222,7 @@ module stripe_b() {
     translate([-POLE_DIAMETER/2, (POLE_DIAMETER + WIRE_DIAMETER - 3)/2, 0]) cube([POLE_DIAMETER, 3, WALL_THICKNESS * 2]);
 }
 
-// box_a();
+box_a();
 box_b();
 // stripe_a(); translate([20, 0, 0]) stripe_a(); translate([40, 0, 0]) stripe_b();
 
